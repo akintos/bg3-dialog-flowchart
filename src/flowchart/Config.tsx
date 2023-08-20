@@ -19,7 +19,7 @@ function Config() {
     const nodeId = urlParams.get("node_id");
     if (nodeId !== null) {
       setNodeSearchId(nodeId);
-      setTimeout(() => fitView({ nodes: [{ id: nodeId }] }), 0);
+      setTimeout(() => fitView({ nodes: [{ id: nodeId }], maxZoom: 1 }), 0);
     }
   }, [fitView]);
 

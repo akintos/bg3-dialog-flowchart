@@ -14,11 +14,11 @@ import { nodeTypes } from "./custom-node";
 function Flowchart() {
   const { rootId } = useWorkspace();
   const { processedNodes, processedEdges } = useNodeData();
-  const { fitView, setNodes, setEdges } = useReactFlow();
+  const { fitView, getZoom, setNodes, setEdges } = useReactFlow();
 
   useEffect(() => {
     if (!rootId) return;
-    setTimeout(() => fitView({ nodes: [{ id: rootId }] }), 0);
+    setTimeout(() => fitView({ nodes: [{ id: rootId }], maxZoom: getZoom() }), 0);
   }, [rootId, fitView]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function Flowchart() {
     (_: React.MouseEvent, node: Node<Gustav.Node>) => {
       if (node.data.Constructor === "Jump") {
         const targetId = node.data.JumpTarget!;
-        fitView({ nodes: [{ id: targetId }] });
+        fitView({ nodes: [{ id: targetId }], maxZoom: getZoom() });
       }
     },
     [fitView]
